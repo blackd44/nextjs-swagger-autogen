@@ -30,6 +30,7 @@ Create a new page at `src/app/api-docs/page.tsx`:
 
 ```tsx
 import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import "swagger-ui-react/swagger-ui.css";
 
 // Simple usage with defaults
 export default createSwaggerPage();
@@ -39,6 +40,7 @@ export default createSwaggerPage();
 
 ```tsx
 import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   config: {
@@ -61,6 +63,7 @@ export default createSwaggerPage({
 
 ```tsx
 import { generateOpenApiSpec, ReactSwagger } from 'nextjs-swagger-autogen';
+import "swagger-ui-react/swagger-ui.css";
 
 export default function ApiDocsPage() {
   const spec = generateOpenApiSpec({
@@ -175,6 +178,7 @@ Dynamic routes are automatically converted to OpenAPI parameters:
 
 ```tsx
 import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   config: {
@@ -199,6 +203,7 @@ export default createSwaggerPage({
 
 ```tsx
 import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   className: "min-h-screen bg-gray-50 dark:bg-gray-900",
