@@ -29,7 +29,7 @@ pnpm add nextjs-swagger-autogen
 Create a new page at `src/app/api-docs/page.tsx`:
 
 ```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import { createSwaggerPage } from "nextjs-swagger-autogen";
 import "swagger-ui-react/swagger-ui.css";
 
 // Simple usage with defaults
@@ -39,39 +39,39 @@ export default createSwaggerPage();
 ### 2. Custom configuration
 
 ```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import { createSwaggerPage } from "nextjs-swagger-autogen";
 import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   config: {
     info: {
-      title: 'My API Documentation',
-      version: '2.0.0',
-      description: 'API documentation for my awesome app',
+      title: "My API Documentation",
+      version: "2.0.0",
+      description: "API documentation for my awesome app",
     },
     servers: [
-      { url: 'http://localhost:3000/api', description: 'Development' },
-      { url: 'https://myapp.com/api', description: 'Production' },
+      { url: "http://localhost:3000/api", description: "Development" },
+      { url: "https://myapp.com/api", description: "Production" },
     ],
   },
-  includeMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-  excludePaths: ['/internal', '/admin'],
+  includeMethods: ["GET", "POST", "PUT", "DELETE"],
+  excludePaths: ["/internal", "/admin"],
 });
 ```
 
 ### 3. Manual usage
 
 ```tsx
-import { generateOpenApiSpec, ReactSwagger } from 'nextjs-swagger-autogen';
+import { generateOpenApiSpec, ReactSwagger } from "nextjs-swagger-autogen";
 import "swagger-ui-react/swagger-ui.css";
 
 export default function ApiDocsPage() {
   const spec = generateOpenApiSpec({
-    apiPath: 'src/app/api', // Custom API path
+    apiPath: "src/app/api", // Custom API path
     config: {
       info: {
-        title: 'Custom API',
-        version: '1.0.0',
+        title: "Custom API",
+        version: "1.0.0",
       },
     },
   });
@@ -92,13 +92,13 @@ Generates an OpenAPI specification from your Next.js API routes.
 
 #### Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `apiPath` | `string` | `src/app/api` | Path to your API routes directory |
-| `config` | `Partial<SwaggerConfig>` | Default config | Custom OpenAPI configuration |
-| `includeMethods` | `Array<HTTPMethod>` | `['GET', 'POST', 'PUT', 'DELETE', 'PATCH']` | HTTP methods to include |
-| `excludePaths` | `string[]` | `[]` | Paths to exclude from documentation |
-| `customPaths` | `Record<string, any>` | `{}` | Custom path definitions to add |
+| Option           | Type                     | Default                                     | Description                         |
+| ---------------- | ------------------------ | ------------------------------------------- | ----------------------------------- |
+| `apiPath`        | `string`                 | `src/app/api`                               | Path to your API routes directory   |
+| `config`         | `Partial<SwaggerConfig>` | Default config                              | Custom OpenAPI configuration        |
+| `includeMethods` | `Array<HTTPMethod>`      | `['GET', 'POST', 'PUT', 'DELETE', 'PATCH']` | HTTP methods to include             |
+| `excludePaths`   | `string[]`               | `[]`                                        | Paths to exclude from documentation |
+| `customPaths`    | `Record<string, any>`    | `{}`                                        | Custom path definitions to add      |
 
 ### `createSwaggerPage(options)`
 
@@ -108,9 +108,9 @@ Creates a React component that renders your API documentation.
 
 Extends `generateOpenApiSpec` options plus:
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `className` | `string` | `undefined` | CSS class for the container |
+| Option           | Type                  | Default                                             | Description                     |
+| ---------------- | --------------------- | --------------------------------------------------- | ------------------------------- |
+| `className`      | `string`              | `undefined`                                         | CSS class for the container     |
 | `containerStyle` | `React.CSSProperties` | `{ minHeight: "100dvh", backgroundColor: "white" }` | Inline styles for the container |
 
 ### `ReactSwagger`
@@ -119,12 +119,12 @@ A React component that renders the Swagger UI.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `spec` | `OpenApiSpec` | Required | The OpenAPI specification |
-| `docExpansion` | `'list' \| 'full' \| 'none'` | `'list'` | Default expansion depth |
-| `tryItOutEnabled` | `boolean` | `true` | Enable "Try it out" functionality |
-| `filter` | `boolean \| string` | `false` | Enable filtering |
+| Prop              | Type                         | Default  | Description                       |
+| ----------------- | ---------------------------- | -------- | --------------------------------- |
+| `spec`            | `OpenApiSpec`                | Required | The OpenAPI specification         |
+| `docExpansion`    | `'list' \| 'full' \| 'none'` | `'list'` | Default expansion depth           |
+| `tryItOutEnabled` | `boolean`                    | `true`   | Enable "Try it out" functionality |
+| `filter`          | `boolean \| string`          | `false`  | Enable filtering                  |
 
 ### `SwaggerErrorBoundary`
 
@@ -132,9 +132,9 @@ Error boundary component for handling Swagger UI errors.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | Required | Child components to wrap |
+| Prop       | Type        | Default          | Description                     |
+| ---------- | ----------- | ---------------- | ------------------------------- |
+| `children` | `ReactNode` | Required         | Child components to wrap        |
 | `fallback` | `ReactNode` | Default error UI | Custom error fallback component |
 
 ## File Structure Support
@@ -162,7 +162,7 @@ The package automatically detects HTTP methods by looking for exported functions
 ```typescript
 // route.ts
 export async function GET() {
-  return Response.json({ message: 'Hello World' });
+  return Response.json({ message: "Hello World" });
 }
 
 export async function POST(request: Request) {
@@ -188,40 +188,40 @@ Dynamic routes are automatically converted to OpenAPI parameters:
 ### Production Setup
 
 ```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import { createSwaggerPage } from "nextjs-swagger-autogen";
 import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   config: {
     info: {
-      title: 'Production API',
-      version: '1.0.0',
-      description: 'Production API documentation',
+      title: "Production API",
+      version: "1.0.0",
+      description: "Production API documentation",
     },
     servers: [
-      { 
-        url: process.env.NEXT_PUBLIC_API_URL || 'https://api.myapp.com',
-        description: 'Production server'
+      {
+        url: process.env.NEXT_PUBLIC_API_URL || "https://api.myapp.com",
+        description: "Production server",
       },
     ],
   },
-  excludePaths: ['/internal', '/admin', '/debug'],
-  includeMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  excludePaths: ["/internal", "/admin", "/debug"],
+  includeMethods: ["GET", "POST", "PUT", "DELETE"],
 });
 ```
 
 ### Custom Styling
 
 ```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import { createSwaggerPage } from "nextjs-swagger-autogen";
 import "swagger-ui-react/swagger-ui.css";
 
 export default createSwaggerPage({
   className: "min-h-screen bg-gray-50 dark:bg-gray-900",
   containerStyle: {
-    padding: '2rem',
-    maxWidth: '1200px',
-    margin: '0 auto',
+    padding: "2rem",
+    maxWidth: "1200px",
+    margin: "0 auto",
   },
 });
 ```
@@ -229,19 +229,23 @@ export default createSwaggerPage({
 ### Development vs Production
 
 ```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
+import { createSwaggerPage } from "nextjs-swagger-autogen";
 
 export default createSwaggerPage({
   config: {
     info: {
-      title: process.env.NODE_ENV === 'production' ? 'Production API' : 'Development API',
-      version: '1.0.0',
+      title:
+        process.env.NODE_ENV === "production"
+          ? "Production API"
+          : "Development API",
+      version: "1.0.0",
     },
-    servers: process.env.NODE_ENV === 'production' 
-      ? [{ url: 'https://api.myapp.com', description: 'Production' }]
-      : [{ url: 'http://localhost:3000/api', description: 'Development' }],
+    servers:
+      process.env.NODE_ENV === "production"
+        ? [{ url: "https://api.myapp.com", description: "Production" }]
+        : [{ url: "http://localhost:3000/api", description: "Development" }],
   },
-  suppressConsoleWarnings: process.env.NODE_ENV === 'production',
+  suppressConsoleWarnings: process.env.NODE_ENV === "production",
 });
 ```
 
@@ -255,44 +259,4 @@ Contributions are welcome! Please read our contributing guide and submit pull re
 
 ## Support
 
-If you encounter any issues, please file them in the [GitHub Issues](https://github.com/yourusername/nextjs-swagger-autogen/issues) section.0.0',
-      description: 'Production API documentation',
-    },
-    servers: [
-      { 
-        url: process.env.NEXT_PUBLIC_API_URL || 'https://api.myapp.com',
-        description: 'Production server'
-      },
-    ],
-  },
-  excludePaths: ['/internal', '/admin', '/debug'],
-  includeMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-});
-```
-
-### Custom Styling
-
-```tsx
-import { createSwaggerPage } from 'nextjs-swagger-autogen';
-
-export default createSwaggerPage({
-  className: "min-h-screen bg-gray-50 dark:bg-gray-900",
-  containerStyle: {
-    padding: '2rem',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-});
-```
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please read our contributing guide and submit pull requests to our repository.
-
-## Support
-
-If you encounter any issues, please file them in the [GitHub Issues](https://github.com/yourusername/nextjs-swagger-autogen/issues) section.
+If you encounter any issues, please file them in the [GitHub Issues](https://github.com/blackd44/nextjs-swagger-autogen/issues) section.
