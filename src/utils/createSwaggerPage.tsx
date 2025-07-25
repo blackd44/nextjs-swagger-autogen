@@ -1,30 +1,31 @@
-import React from "react";
+import { SwaggerClient } from "../components/SwaggerClient";
 import { generateOpenApiSpec } from "../lib/swagger";
-import { ReactSwagger } from "../components/ReactSwagger";
 import { SwaggerOptions } from "../types";
 
 interface CreateSwaggerPageOptions extends SwaggerOptions {
   className?: string;
   containerStyle?: React.CSSProperties;
+  suppressConsoleWarnings?: boolean;
 }
 
 export function createSwaggerPage(options: CreateSwaggerPageOptions = {}) {
-  const { className, containerStyle, ...swaggerOptions } = options;
+  const {
+    className,
+    containerStyle,
+    suppressConsoleWarnings,
+    ...swaggerOptions
+  } = options;
 
   const SwaggerPage: React.FC = () => {
     const spec = generateOpenApiSpec(swaggerOptions);
 
     return (
-      <section
+      <SwaggerClient
+        spec={spec}
         className={className}
-        style={{
-          minHeight: "100dvh",
-          backgroundColor: "white",
-          ...containerStyle,
-        }}
-      >
-        <ReactSwagger spec={spec} />
-      </section>
+        containerStyle={containerStyle}
+        suppressConsoleWarnings={suppressConsoleWarnings}
+      />
     );
   };
 

@@ -126,6 +126,17 @@ A React component that renders the Swagger UI.
 | `tryItOutEnabled` | `boolean` | `true` | Enable "Try it out" functionality |
 | `filter` | `boolean \| string` | `false` | Enable filtering |
 
+### `SwaggerErrorBoundary`
+
+Error boundary component for handling Swagger UI errors.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | Required | Child components to wrap |
+| `fallback` | `ReactNode` | Default error UI | Custom error fallback component |
+
 ## File Structure Support
 
 The package works with the standard Next.js App Router structure:
@@ -204,6 +215,65 @@ export default createSwaggerPage({
 ```tsx
 import { createSwaggerPage } from 'nextjs-swagger-autogen';
 import "swagger-ui-react/swagger-ui.css";
+
+export default createSwaggerPage({
+  className: "min-h-screen bg-gray-50 dark:bg-gray-900",
+  containerStyle: {
+    padding: '2rem',
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+});
+```
+
+### Development vs Production
+
+```tsx
+import { createSwaggerPage } from 'nextjs-swagger-autogen';
+
+export default createSwaggerPage({
+  config: {
+    info: {
+      title: process.env.NODE_ENV === 'production' ? 'Production API' : 'Development API',
+      version: '1.0.0',
+    },
+    servers: process.env.NODE_ENV === 'production' 
+      ? [{ url: 'https://api.myapp.com', description: 'Production' }]
+      : [{ url: 'http://localhost:3000/api', description: 'Development' }],
+  },
+  suppressConsoleWarnings: process.env.NODE_ENV === 'production',
+});
+```
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please read our contributing guide and submit pull requests to our repository.
+
+## Support
+
+If you encounter any issues, please file them in the [GitHub Issues](https://github.com/yourusername/nextjs-swagger-autogen/issues) section.0.0',
+      description: 'Production API documentation',
+    },
+    servers: [
+      { 
+        url: process.env.NEXT_PUBLIC_API_URL || 'https://api.myapp.com',
+        description: 'Production server'
+      },
+    ],
+  },
+  excludePaths: ['/internal', '/admin', '/debug'],
+  includeMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+});
+```
+
+### Custom Styling
+
+```tsx
+import { createSwaggerPage } from 'nextjs-swagger-autogen';
 
 export default createSwaggerPage({
   className: "min-h-screen bg-gray-50 dark:bg-gray-900",

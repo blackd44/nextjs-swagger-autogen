@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import SwaggerUI from "swagger-ui-react";
+import React, { useMemo, useCallback } from "react";
+import SwaggerUI, { SwaggerUIProps } from "swagger-ui-react";
 import { OpenApiSpec } from "../types";
 
 interface ReactSwaggerProps {
@@ -15,20 +15,14 @@ interface ReactSwaggerProps {
   showExtensions?: boolean;
   showCommonExtensions?: boolean;
   tryItOutEnabled?: boolean;
-  supportedSubmitMethods?: (
-    | "get"
-    | "post"
-    | "put"
-    | "delete"
-    | "patch"
-    | "options"
-    | "head"
-    | "trace"
-  )[];
+  supportedSubmitMethods?: string[];
   validatorUrl?: string | null;
   withCredentials?: boolean;
   persistAuthorization?: boolean;
   deepLinking?: boolean;
+  onComplete?: () => void;
+  requestInterceptor?: (request: any) => any;
+  responseInterceptor?: (response: any) => any;
 }
 
 export const ReactSwagger: React.FC<ReactSwaggerProps> = ({
@@ -43,32 +37,82 @@ export const ReactSwagger: React.FC<ReactSwaggerProps> = ({
   showCommonExtensions = false,
   tryItOutEnabled = true,
   supportedSubmitMethods = ["get", "post", "put", "delete", "patch"],
-  // validatorUrl = null,
+  validatorUrl = null,
   withCredentials = false,
   persistAuthorization = false,
   deepLinking = true,
+  onComplete,
+  requestInterceptor,
+  responseInterceptor,
   ...props
 }) => {
+  const memoizedSpec = useMemo(() => spec, [spec]);
+  const swaggerConfig = useMemo<SwaggerUIProps>(
+    () => ({
+      spec: memoizedSpec,
+      docExpansion,
+      defaultModelsExpandDepth,
+      defaultModelRendering,
+      displayOperationId,
+      displayRequestDuration,
+      filter,
+      showExtensions,
+      showCommonExtensions,
+      tryItOutEnabled,
+      validatorUrl,
+      withCredentials,
+      persistAuthorization,
+      deepLinking,
+      onComplete,
+      requestInterceptor,
+      responseInterceptor,
+      showMutatedRequest: true,
+      ...props,
+    }),
+    [
+      memoizedSpec,
+      docExpansion,
+      defaultModelsExpandDepth,
+      defaultModelRendering,
+      displayOperationId,
+      displayRequestDuration,
+      filter,
+      showExtensions,
+      showCommonExtensions,
+      tryItOutEnabled,
+      validatorUrl,
+      withCredentials,
+      persistAuthorization,
+      deepLinking,
+      onComplete,
+      requestInterceptor,
+      responseInterceptor,
+      props,
+    ]
+  );
+
+  const handleComplete = useCallback(() => {
+    const originalConsoleWarn = console.warn;
+    console.warn = (...args) => {
+      if (
+        args[0] &&
+        typeof args[0] === "string" &&
+        (args[0].includes("UNSAFE_componentWillReceiveProps") ||
+          args[0].includes("componentWillReceiveProps"))
+      ) {
+        return;
+      }
+      originalConsoleWarn.apply(console, args);
+    };
+
+    if (onComplete) {
+      onComplete();
+    }
+  }, [onComplete]);
+
   return (
     <div style={{ display: "grid" }}>
-      <SwaggerUI
-        spec={spec}
-        docExpansion={docExpansion}
-        defaultModelsExpandDepth={defaultModelsExpandDepth}
-        defaultModelRendering={defaultModelRendering}
-        displayOperationId={displayOperationId}
-        displayRequestDuration={displayRequestDuration}
-        filter={filter}
-        showExtensions={showExtensions}
-        showCommonExtensions={showCommonExtensions}
-        tryItOutEnabled={tryItOutEnabled}
-        supportedSubmitMethods={supportedSubmitMethods}
-        // validatorUrl={validatorUrl}
-        withCredentials={withCredentials}
-        persistAuthorization={persistAuthorization}
-        deepLinking={deepLinking}
-        {...props}
-      />
+      <SwaggerUI {...swaggerConfig} onComplete={handleComplete} />
     </div>
   );
 };
