@@ -50,7 +50,7 @@ export const ReactSwagger: React.FC<ReactSwaggerProps> = ({
   ...props
 }) => {
   return (
-    <div style={{ width: "100%", height: "100dvh" }}>
+    <div style={{ display: "grid" }}>
       <SwaggerUI
         spec={spec}
         docExpansion={docExpansion}

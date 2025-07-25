@@ -110,8 +110,8 @@ Extends `generateOpenApiSpec` options plus:
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `className` | `string` | `"min-h-screen bg-white"` | CSS class for the container |
-| `containerStyle` | `React.CSSProperties` | `undefined` | Inline styles for the container |
+| `className` | `string` | `undefined` | CSS class for the container |
+| `containerStyle` | `React.CSSProperties` | `{ minHeight: "100dvh", backgroundColor: "white" }` | Inline styles for the container |
 
 ### `ReactSwagger`
 

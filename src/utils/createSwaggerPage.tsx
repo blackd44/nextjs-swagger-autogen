@@ -9,17 +9,20 @@ interface CreateSwaggerPageOptions extends SwaggerOptions {
 }
 
 export function createSwaggerPage(options: CreateSwaggerPageOptions = {}) {
-  const {
-    className = "min-h-screen bg-white",
-    containerStyle,
-    ...swaggerOptions
-  } = options;
+  const { className, containerStyle, ...swaggerOptions } = options;
 
   const SwaggerPage: React.FC = () => {
     const spec = generateOpenApiSpec(swaggerOptions);
 
     return (
-      <section className={className} style={containerStyle}>
+      <section
+        className={className}
+        style={{
+          minHeight: "100dvh",
+          backgroundColor: "white",
+          ...containerStyle,
+        }}
+      >
         <ReactSwagger spec={spec} />
       </section>
     );
