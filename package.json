@@ -1,6 +1,6 @@
 {
   "name": "nextjs-swagger-autogen",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Auto-generate Swagger documentation for Next.js API routes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
